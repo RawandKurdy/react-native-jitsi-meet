@@ -26,6 +26,11 @@
     [jitsiMeetView loadURLString:url];
 }
 
+- (void)loadURLObject:(NSDictionary *) urlObj {
+    JitsiMeetView *jitsiMeetView = (JitsiMeetView *) self.view;
+    [jitsiMeetView loadURLObject:urlObj];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
