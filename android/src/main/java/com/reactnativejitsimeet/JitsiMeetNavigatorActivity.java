@@ -10,16 +10,41 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.modules.core.PermissionListener;
 
 import org.jitsi.meet.sdk.JitsiMeetView;
 import org.jitsi.meet.sdk.JitsiMeetViewListener;
+import org.jitsi.meet.sdk.JitsiMeetActivityInterface;
+import org.jitsi.meet.sdk.ReactActivityLifecycleCallbacks;
 
-public class JitsiMeetNavigatorActivity extends AppCompatActivity implements JitsiMeetViewListener{
+public class JitsiMeetNavigatorActivity extends AppCompatActivity implements JitsiMeetViewListener, JitsiMeetActivityInterface {
     private JitsiMeetView view;
 
     @Override
+    public void requestPermissions(String[] permissions, int requestCode, PermissionListener listener) {
+        ReactActivityLifecycleCallbacks.requestPermissions(this, permissions, requestCode, listener);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            final int requestCode,
+            final String[] permissions,
+            final int[] grantResults) {
+        ReactActivityLifecycleCallbacks.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(
+            int requestCode,
+            int resultCode,
+            Intent data) {
+        ReactActivityLifecycleCallbacks.onActivityResult(
+                this, requestCode, resultCode, data);
+    }
+
+    @Override
     public void onBackPressed() {
-        if (!JitsiMeetView.onBackPressed()) {
+        if (!ReactActivityLifecycleCallbacks.onBackPressed()) {
             // Invoke the default handler if it wasn't handled by React.
             super.onBackPressed();
         }
@@ -30,9 +55,17 @@ public class JitsiMeetNavigatorActivity extends AppCompatActivity implements Jit
         super.onCreate(savedInstanceState);
 
         String url = getIntent().getStringExtra("url");
+        String jwt = getIntent().getStringExtra("jwt");
         view = new JitsiMeetView(this);
         view.setListener(this);
-        view.loadURLString(url);
+        Bundle config = new Bundle();
+        config.putBoolean("startWithAudioMuted", false);
+        config.putBoolean("startWithVideoMuted", false);
+        Bundle urlObject = new Bundle();
+        urlObject.putBundle("config", config);
+        urlObject.putString("url", url);
+        urlObject.putString("jwt", jwt);
+        view.loadURLObject(urlObject);
 
         setContentView(view);
     }
@@ -44,26 +77,26 @@ public class JitsiMeetNavigatorActivity extends AppCompatActivity implements Jit
         view.dispose();
         view = null;
 
-        JitsiMeetView.onHostDestroy(this);
+        ReactActivityLifecycleCallbacks.onHostDestroy(this);
     }
 
     @Override
     public void onNewIntent(Intent intent) {
-        JitsiMeetView.onNewIntent(intent);
+        ReactActivityLifecycleCallbacks.onNewIntent(intent);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        JitsiMeetView.onHostResume(this);
+        ReactActivityLifecycleCallbacks.onHostResume(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        JitsiMeetView.onHostPause(this);
+        ReactActivityLifecycleCallbacks.onHostPause(this);
     }
 
     private void on(String name, Map<String, Object> data) {
