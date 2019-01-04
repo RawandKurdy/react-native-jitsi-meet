@@ -40,10 +40,11 @@ public class JitsiMeetModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void call(String url) {
+    public void call(String url, String jwt) {
         ReactApplicationContext context = getReactApplicationContext();
         Intent intent = new Intent(context, JitsiMeetNavigatorActivity.class);
         intent.putExtra("url", url);
+        intent.putExtra("jwt", jwt);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }

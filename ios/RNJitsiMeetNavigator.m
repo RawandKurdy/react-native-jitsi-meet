@@ -51,7 +51,7 @@ RCT_EXPORT_METHOD(initialize)
     jitsiMeetViewController = [storyboard instantiateViewControllerWithIdentifier:@"jitsiMeetStoryBoardID"];
 }
 
-RCT_EXPORT_METHOD(call:(NSString *)urlString)
+RCT_EXPORT_METHOD(call:(NSString *)urlString :(NSString *)jwtString)
 {
     RCTLogInfo(@"Load URL %@", urlString);
     dispatch_sync(dispatch_get_main_queue(), ^{
@@ -59,7 +59,14 @@ RCT_EXPORT_METHOD(call:(NSString *)urlString)
         UINavigationController *navigationController = (UINavigationController *) rootViewController;
         [navigationController pushViewController:jitsiMeetViewController animated:true];
         [jitsiMeetViewController setDelegate:self];
-        [jitsiMeetViewController loadUrl:urlString];
+        [jitsiMeetViewController loadURLObject:@{
+            @"config": @{
+                @"startWithAudioMuted": @YES,
+                @"startWithVideoMuted": @NO
+            },
+            @"url": urlString,
+            @"jwt": jwtString,
+        }];
     });
 }
 

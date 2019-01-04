@@ -186,22 +186,22 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class AVAudioSession;
 @class CXAction;
 
-SWIFT_PROTOCOL("_TtP9JitsiMeet17JMCallKitListener_") SWIFT_AVAILABILITY(ios,introduced=10.0)
+SWIFT_PROTOCOL("_TtP9JitsiMeet17JMCallKitListener_")
 @protocol JMCallKitListener <NSObject>
 @optional
-- (void)providerDidReset SWIFT_AVAILABILITY(ios,introduced=10.0);
-- (void)performAnswerCallWithUUID:(NSUUID * _Nonnull)UUID SWIFT_AVAILABILITY(ios,introduced=10.0);
-- (void)performEndCallWithUUID:(NSUUID * _Nonnull)UUID SWIFT_AVAILABILITY(ios,introduced=10.0);
-- (void)performSetMutedCallWithUUID:(NSUUID * _Nonnull)UUID isMuted:(BOOL)isMuted SWIFT_AVAILABILITY(ios,introduced=10.0);
-- (void)performStartCallWithUUID:(NSUUID * _Nonnull)UUID isVideo:(BOOL)isVideo SWIFT_AVAILABILITY(ios,introduced=10.0);
-- (void)providerDidActivateAudioSessionWithSession:(AVAudioSession * _Nonnull)session SWIFT_AVAILABILITY(ios,introduced=10.0);
-- (void)providerDidDeactivateAudioSessionWithSession:(AVAudioSession * _Nonnull)session SWIFT_AVAILABILITY(ios,introduced=10.0);
-- (void)providerTimedOutPerformingActionWithAction:(CXAction * _Nonnull)action SWIFT_AVAILABILITY(ios,introduced=10.0);
+- (void)providerDidReset;
+- (void)performAnswerCallWithUUID:(NSUUID * _Nonnull)UUID;
+- (void)performEndCallWithUUID:(NSUUID * _Nonnull)UUID;
+- (void)performSetMutedCallWithUUID:(NSUUID * _Nonnull)UUID isMuted:(BOOL)isMuted;
+- (void)performStartCallWithUUID:(NSUUID * _Nonnull)UUID isVideo:(BOOL)isVideo;
+- (void)providerDidActivateAudioSessionWithSession:(AVAudioSession * _Nonnull)session;
+- (void)providerDidDeactivateAudioSessionWithSession:(AVAudioSession * _Nonnull)session;
+- (void)providerTimedOutPerformingActionWithAction:(CXAction * _Nonnull)action;
 @end
 
 @class CXTransaction;
 
-SWIFT_CLASS("_TtC9JitsiMeet14JMCallKitProxy") SWIFT_AVAILABILITY(ios,introduced=10.0)
+SWIFT_CLASS("_TtC9JitsiMeet14JMCallKitProxy")
 @interface JMCallKitProxy : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
