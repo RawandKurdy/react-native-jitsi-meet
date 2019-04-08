@@ -61,8 +61,8 @@ RCT_EXPORT_METHOD(call:(NSString *)urlString)
         [jitsiMeetViewController setDelegate:self];
         [jitsiMeetViewController loadURLObject:@{
             @"config": @{
-                @"startWithAudioMuted": @YES,
-                @"startWithVideoMuted": @NO
+                @"startWithAudioMuted": @NO,
+                @"startWithVideoMuted": @NO,
             },
             @"url": urlString,
         }];
