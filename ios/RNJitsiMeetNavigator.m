@@ -51,7 +51,7 @@ RCT_EXPORT_METHOD(initialize)
     jitsiMeetViewController = [storyboard instantiateViewControllerWithIdentifier:@"jitsiMeetStoryBoardID"];
 }
 
-RCT_EXPORT_METHOD(call:(NSString *)urlString :(NSString *)jwtString)
+RCT_EXPORT_METHOD(call:(NSString *)urlString)
 {
     RCTLogInfo(@"Load URL %@", urlString);
     dispatch_sync(dispatch_get_main_queue(), ^{
@@ -65,7 +65,6 @@ RCT_EXPORT_METHOD(call:(NSString *)urlString :(NSString *)jwtString)
                 @"startWithVideoMuted": @NO
             },
             @"url": urlString,
-            @"jwt": jwtString,
         }];
     });
 }
