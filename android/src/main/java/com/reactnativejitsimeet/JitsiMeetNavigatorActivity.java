@@ -44,10 +44,9 @@ public class JitsiMeetNavigatorActivity extends AppCompatActivity implements Jit
 
     @Override
     public void onBackPressed() {
-        if (!ReactActivityLifecycleCallbacks.onBackPressed()) {
-            // Invoke the default handler if it wasn't handled by React.
-            super.onBackPressed();
-        }
+        super.onBackPressed();
+
+        ReactActivityLifecycleCallbacks.onBackPressed();
     }
 
     @Override
@@ -55,7 +54,7 @@ public class JitsiMeetNavigatorActivity extends AppCompatActivity implements Jit
         super.onCreate(savedInstanceState);
 
         String url = getIntent().getStringExtra("url");
-        String jwt = getIntent().getStringExtra("jwt");
+        //String jwt = getIntent().getStringExtra("jwt");
         view = new JitsiMeetView(this);
         view.setListener(this);
         Bundle config = new Bundle();
@@ -64,7 +63,7 @@ public class JitsiMeetNavigatorActivity extends AppCompatActivity implements Jit
         Bundle urlObject = new Bundle();
         urlObject.putBundle("config", config);
         urlObject.putString("url", url);
-        urlObject.putString("jwt", jwt);
+        //urlObject.putString("jwt", jwt);
         view.loadURLObject(urlObject);
 
         setContentView(view);
